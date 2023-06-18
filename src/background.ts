@@ -9,6 +9,11 @@ const genericOnClick: (info: chrome.contextMenus.OnClickData, tab?: chrome.tabs.
 chrome.contextMenus.onClicked.addListener(genericOnClick)
 
 chrome.runtime.onInstalled.addListener(function () {
+  chrome.action.onClicked.addListener(tab => {
+    // 跳转到选项页
+    chrome.tabs.create({ url: 'options.html' })
+  })
+  // 右键菜单
   // 页面
   chrome.contextMenus.create({
     id: 'page',
@@ -24,7 +29,7 @@ chrome.runtime.onInstalled.addListener(function () {
   // 链接
   chrome.contextMenus.create({
     id: 'link',
-    title: '将链接添加到知识库',
+    title: '将此链接内容添加到知识库',
     contexts: ['link']
   })
 })
